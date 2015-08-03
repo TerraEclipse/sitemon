@@ -1,5 +1,17 @@
 module.exports = function (app) {
   return app.controller()
+    .get('/sites/:site_id/scan/:scan_id', function (req, res, next) {
+      app.sites.load(req.params.site_id, function (err, site) {
+        if (err) return next(err);
+        if (!site) return res.renderStatus(404);
+        app.site_scans(site.id).load(req.params.scan_id, function (err, scan) {
+          if (err) return next(err);
+          if (!scan) return res.renderStatus(404);
+          res.vars.scan_json = JSON.stringify(scan, null, 2);
+          res.render('sites/scan');
+        });
+      });
+    })
     .post('/sites/new', function (req, res, next) {
       var site = {
         url: req.body.url,
