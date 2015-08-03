@@ -17,6 +17,16 @@ module.exports = function (app) {
     .get('/sites/new', function (req, res, next) {
       res.render('sites/new');
     })
+    .get('/sites/:id/scan', function (req, res, next) {
+      app.sites.load(req.params.id, function (err, site) {
+        if (err) return next(err);
+        if (!site) return res.renderStatus(404);
+        app.scan(site, function (err, resp) {
+          if (err) return next(err);
+          res.redirect('/sites/' + site.id);
+        });
+      });
+    })
     .get('/sites/:id', function (req, res, next) {
       app.sites.load(req.params.id, function (err, site) {
         if (err) return next(err);
