@@ -1,0 +1,9 @@
+id: sitemon
+collections: "collections/*.js"
+minimal: true
+plugins:
+  - "tasks/*.js"
+  - "plugins/*.js"
+redis:
+  port: 6379
+  host: localhost

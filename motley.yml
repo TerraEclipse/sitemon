@@ -1,0 +1,18 @@
+id: sitemon
+afterware: "afterware/*.js"
+collections: "collections/*.js"
+controllers: "controllers/*.js"
+middleware: "middleware/*.js"
+plugins: "plugins/*.js"
+public: "public/**/*"
+views:
+  - "views/**/*.hbs"
+  - "views/**/*.handlebars"
+  - "views/**/*.md"
+  - "views/**/*.markdown"
+
+port: 3000
+title: sitemon
+redis:
+  port: 6379
+  host: localhost
