@@ -32,7 +32,15 @@ module.exports = function (app) {
         if (err) return next(err);
         if (!site) return res.renderStatus(404);
         res.vars.site = site;
-        res.render('sites/view');
+        res.vars.scans = [];
+        app.site_scans(site.id).tail(0, {load: true}, function (err, chunk, getNext) {
+          if (err) return next(err);
+          res.vars.scans = res.vars.scans.concat(chunk);
+          if (chunk.length && res.vars.scans.length < 50) getNext();
+          else {
+            res.render('sites/view');
+          }
+        });
       });
     })
     .post('/sites/:id/edit', function (req, res, next) {

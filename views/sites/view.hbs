@@ -1,9 +1,24 @@
 <p class="pull-right">
-<a class="btn btn-default" href="/sites/{{site.id}}/edit" role="button">edit</a>
+<a class="btn btn-default" href="/sites/{{site.id}}/edit" role="button">edit site</a>
 </p>
 
 <h2><a href="/">{{title}}</a></h2>
 
 <h1>{{site.parsed_url.hostname}}{{#if site.label}} ({{site.label}}){{/if}}</h1>
 
-[scans here]
+<table class="table">
+  <thead>
+    <tr><th>Time</th><th>Result</th><th>Resp. Code</th><th>Resp. Time</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    {{#each scans}}
+    <tr>
+      <td>{{created}}</td>
+      <td><span class="label label-{{code}}">{{code}}</span></td>
+      <td>{{response_code}}</td>
+      <td>{{response_time}}ms</td>
+      <td><a href="/sites/{{../site.id}}/scan/{{id}}">Detail</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
