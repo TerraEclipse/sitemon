@@ -1,6 +1,7 @@
 module.exports = function (app) {
   app.require('request', 'site_scans');
   return function (site, cb) {
+    if (!site.active) return cb(null, null);
     console.log('scan', site.parsed_url.hostname);
     var scan = {};
     var started = new Date();

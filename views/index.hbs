@@ -12,9 +12,9 @@
     {{#each sites}}
     <tr>
       <td>{{parsed_url.hostname}}{{#if label}} ({{label}}){{/if}}</td>
-      <td>Active</td>
-      <td>10:10 am PDT 08/03/2015</td>
-      <td><span class="label label-success">OK</span></td>
+      <td>{{#if active}}Active{{else}}Inactive{{/if}}</td>
+      <td>{{last_scan.created}}</td>
+      <td><span class="label label-{{last_scan.code}}">{{last_scan.code}}</span></td>
       <td><a href="/sites/{{id}}/edit">Edit</a></td>
       <td><a href="/sites/{{id}}">Data</a></td>
       <td><a href="/sites/{{id}}/scan">Scan</a></td>
