@@ -36,8 +36,40 @@ module.exports = function (app) {
       }
       app.site_scans(site.id).create(scan, function (err, scan) {
         if (err) return cb(err);
-        console.log('scan', scan);
-        cb(null, scan);
+        if (site.last_scan && site.notify && app.conf.mailer && app.conf.mailer.from) {
+          if (site.last_scan.code === 'success' && scan.code !== 'success') {
+            // we have fallen into error/warning state
+            var options = {
+              from: app.conf.mailer.from,
+              to: site.notify,
+              subject: 'Warning: ' + site.parsed_url.hostname,
+              text: 'Hi there,\n\nThis is a friendly automated notification\n' +
+              'to inform you that ' + site.parsed_url.hostname + ' (' + site.label + ') may be experiencing issues.'
+            };
+
+            app.mailer.sendMail(options, function (err, info) {
+              if (err) return cb(err);
+              cb(null, scan);
+            });
+          }
+          else if (site.last_scan.code !== 'success' && scan.code === 'success') {
+            // we have fallen into OK state
+            var options = {
+              from: app.conf.mailer.from,
+              to: site.notify,
+              subject: 'OK: ' + site.parsed_url.hostname,
+              text: 'Hi there,\n\nThis is a friendly automated notification\n' +
+              'to inform you that ' + site.parsed_url.hostname + ' (' + site.label + ') seems to be OK now.'
+            };
+
+            app.mailer.sendMail(options, function (err, info) {
+              if (err) return cb(err);
+              cb(null, scan);
+            });
+          }
+          else cb(null, scan);
+        }
+        else cb(null, scan);
       });
     });
   };

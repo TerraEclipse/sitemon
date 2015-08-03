@@ -7,3 +7,12 @@ plugins:
 redis:
   port: 6379
   host: localhost
+
+mailer:
+  from: TE Monitor <monitor@terraeclipse.com>
+  service: Stub
+
+#  service: SES
+#    options:
+#      accessKeyId: "AWSACCESSKEY"
+#      secretAccessKey: "AWS/Secret/key"

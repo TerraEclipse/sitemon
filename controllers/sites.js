@@ -19,7 +19,7 @@ module.exports = function (app) {
         expected_status: Number(req.body.expected_status),
         expected_pattern: req.body.expected_pattern,
         active: !!req.body.active,
-        notify: !!req.body.notify
+        notify: req.body.notify
       };
       app.sites.create(site, function (err, site) {
         if (err) return next(err);
@@ -66,7 +66,7 @@ module.exports = function (app) {
           expected_status: Number(req.body.expected_status),
           expected_pattern: req.body.expected_pattern,
           active: !!req.body.active,
-          notify: !!req.body.notify
+          notify: req.body.notify
         };
         Object.keys(site2).forEach(function (k) {
           site[k] = site2[k];
