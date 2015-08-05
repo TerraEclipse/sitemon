@@ -1,5 +1,11 @@
 module.exports = function (app) {
   return app.controller()
+    .get('/sites/:site_id/delete', function (req, res, next) {
+      app.sites.destroy(req.params.site_id, function (err, site) {
+        if (err) return next(err);
+        res.redirect('/');
+      });
+    })
     .get('/sites/:site_id/scan/:scan_id', function (req, res, next) {
       app.sites.load(req.params.site_id, function (err, site) {
         if (err) return next(err);
