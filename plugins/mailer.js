@@ -19,7 +19,7 @@ module.exports = function (app) {
     sendMail: function (_opts, cb) {
       _opts || (_opts = {});
       mailer.sendMail(_opts, function (err, info) {
-        console.log('mailer', '[' + service + ']\n', JSON.stringify(_opts, null, 2) + '\n', info.response.toString());
+        console.log('mailer', '[' + service + ']\n', info.response.toString());
         cb && cb(err, info);
       });
     }

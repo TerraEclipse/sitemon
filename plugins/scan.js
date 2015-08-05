@@ -2,7 +2,7 @@ module.exports = function (app) {
   app.require('request', 'site_scans');
   return function (site, cb) {
     if (!site.active) return cb(null, null);
-    console.log('scan', site.parsed_url.hostname);
+    // console.log('scan', site.parsed_url.hostname);
     var scan = {};
     var started = new Date();
     app.request({
@@ -17,6 +17,7 @@ module.exports = function (app) {
         scan.reason = 'error';
       }
       else {
+        scan.response_headers = resp.headers;
         scan.response_time = new Date().getTime() - started.getTime();
         scan.response_code = resp.statusCode;
 

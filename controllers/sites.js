@@ -23,7 +23,7 @@ module.exports = function (app) {
       };
       app.sites.create(site, function (err, site) {
         if (err) return next(err);
-        console.log('created', JSON.stringify(site, null, 2));
+        // console.log('created', JSON.stringify(site, null, 2));
         res.redirect('/sites/' + site.id);
       });
     })
@@ -73,7 +73,7 @@ module.exports = function (app) {
         });
         app.sites.save(site, function (err, site) {
           if (err) return next(err);
-          console.log('saved', JSON.stringify(site, null, 2));
+          // console.log('saved', JSON.stringify(site, null, 2));
           res.redirect('/sites/' + site.id);
         });
       });
