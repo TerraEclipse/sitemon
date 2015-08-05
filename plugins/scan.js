@@ -3,7 +3,9 @@ module.exports = function (app) {
   return function (site, cb) {
     if (!site.active) return cb(null, null);
     // console.log('scan', site.parsed_url.hostname);
-    var scan = {};
+    var scan = {
+      url: site.url
+    };
     var started = new Date();
     app.request({
       uri: site.url,
