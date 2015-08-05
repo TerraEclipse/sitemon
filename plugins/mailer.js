@@ -20,7 +20,10 @@ module.exports = function (app) {
       _opts || (_opts = {});
       mailer.sendMail(_opts, function (err, info) {
         if (err) throw err;
-        var resp = info ? info.response.toString() : '';
+        var resp = '';
+        if (info) {
+          resp = info.response ? info.response.toString() : info;
+        }
         console.log('mailer', '[' + service + ']\n', resp);
         cb && cb(err, info);
       });
