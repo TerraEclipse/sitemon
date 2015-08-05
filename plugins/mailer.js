@@ -19,7 +19,9 @@ module.exports = function (app) {
     sendMail: function (_opts, cb) {
       _opts || (_opts = {});
       mailer.sendMail(_opts, function (err, info) {
-        console.log('mailer', '[' + service + ']\n', info.response.toString());
+        if (err) throw err;
+        var resp = info ? info.response.toString() : '';
+        console.log('mailer', '[' + service + ']\n', resp);
         cb && cb(err, info);
       });
     }
