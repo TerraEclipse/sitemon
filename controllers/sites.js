@@ -47,16 +47,18 @@ module.exports = function (app) {
       });
     })
     .get('/sites/:id', function (req, res, next) {
+      res.vars.offset = Number(req.query.offset || 0);
       app.sites.load(req.params.id, function (err, site) {
         if (err) return next(err);
         if (!site) return res.renderStatus(404);
         res.vars.site = site;
         res.vars.scans = [];
-        app.site_scans(site.id).tail(0, {load: true}, function (err, chunk, getNext) {
+        app.site_scans(site.id).tail(50, {offset: res.vars.offset, load: true}, function (err, chunk, getNext) {
           if (err) return next(err);
           res.vars.scans = res.vars.scans.concat(chunk);
           if (chunk.length && res.vars.scans.length < 50) getNext();
           else {
+            res.vars.offset += res.vars.scans.length;
             res.render('sites/view');
           }
         });
