@@ -1,0 +1,28 @@
+<p class="pull-right">
+<a class="btn btn-default" href="/servers/new" role="button">new server</a>
+</p>
+
+<h1>{{title}}</h1>
+
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="/">Sites</a></li>
+  <li role="presentation" class="active"><a href="#">Servers</a></li>
+</ul>
+
+<table class="table">
+  <thead>
+    <tr><th>Site</th><th>Active</th><th>Last Ping</th><th colspan="3">Actions</th></tr>
+  </thead>
+  <tbody>
+    {{#each servers}}
+    <tr>
+      <td>{{label}}</td>
+      <td>{{#if active}}Active{{else}}Inactive{{/if}}</td>
+      <td>{{last_post.created}}</td>
+      <td><a href="/servers/{{id}}/edit">Edit</a></td>
+      <td><a href="/servers/{{id}}">Data</a></td>
+      <td></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
