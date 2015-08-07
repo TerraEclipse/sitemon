@@ -15,6 +15,7 @@
     "nodemailer-ses-transport": "^1.3.0",
     "nodemailer-stub-transport": "^1.0.0",
     "redis": "^0.12.1",
+    "statpipe": "0.0.2",
     "tinyauth": "^0.1.1"
   }
 }

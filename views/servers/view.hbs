@@ -1,0 +1,28 @@
+<p class="pull-right">
+<a class="btn btn-default" href="/servers/{{server.id}}/edit" role="button">edit server</a>
+</p>
+
+<h2><a href="/">{{title}}</a></h2>
+
+<h1>server: {{server.label}}</h1>
+
+<table class="table">
+  <thead>
+    <tr><th>Time</th><th>Mem</th><th>Swap</th><th>Load</th><th>Disk</th><th>TCP</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    {{#each posts}}
+    <tr>
+      <td>{{created}}</td>
+      <td>{{mem_used}} / {{mem_total}}</td>
+      <td>{{swap_used}} / {{swap_total}}</td>
+      <td>{{load_avg}}</td>
+      <td>{{disk_pct}}%</td>
+      <td>{{tcp_conns}}</td>
+      <td><a href="/servers/{{../server.id}}/post/{{id}}">Detail</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<p><a href="?offset={{offset}}">More...</a></p>
