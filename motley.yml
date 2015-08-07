@@ -25,3 +25,8 @@ mailer:
 #    options:
 #      accessKeyId: "AWSACCESSKEY"
 #      secretAccessKey: "AWS/Secret/key"
+
+#auth:
+#  realm: SiteMonitor
+#  accounts:
+#    - 'foo:1234'
