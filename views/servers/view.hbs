@@ -16,9 +16,9 @@
       <td>{{created}}</td>
       <td>{{mem_used}} / {{mem_total}}</td>
       <td>{{swap_used}} / {{swap_total}}</td>
-      <td>{{load_avg}}</td>
+      <td><span class="inlinesparkline">{{meta.load_avg}}</span></td>
+      <td><span class="inlinesparkline">{{meta.tcp_conns}}</span></td>
       <td>{{disk_pct}}%</td>
-      <td>{{tcp_conns}}</td>
       <td><a href="/servers/{{../server.id}}/post/{{id}}">Detail</a></td>
     </tr>
     {{/each}}
