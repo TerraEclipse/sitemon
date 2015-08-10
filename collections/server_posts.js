@@ -17,7 +17,7 @@ module.exports = function (app) {
             case "running":
             case "disk_pct":
             case "tcp_conns":
-              console.log('recording stat', server_id + ':' + k, '=', server_post[k]);
+              // console.log('recording stat', server_id + ':' + k, '=', server_post[k]);
               app.stats.record(server_id + ':' + k, server_post[k], function (err) {
                 if (err) throw err;
               });

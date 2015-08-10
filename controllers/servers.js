@@ -31,7 +31,7 @@ module.exports = function (app) {
               server_post[k] = Number(req.body[k]); break;
           }
         });
-        console.log('got server_post', server_post);
+        // console.log('got server_post', server_post);
         if (Object.keys(server_post).length === 0) return res.renderStatus(400);
         app.server_posts(server.id).create(server_post, function (err, server_post) {
           if (err) return next(err);
