@@ -16,8 +16,26 @@ module.exports = function (app) {
         server.last_post = chunk[0];
         server.meta = {};
         async.parallel({
-          mem_used: function (done) {
-            app.stats.graph(server.id + ':mem_used', '5m', {start: new Date().getTime() - 86400000}, function (err, results) {
+          load_avg: function (done) {
+            app.stats.graph(server.id + ':load_avg', '5m', {start: new Date().getTime() - 86400000}, function (err, results) {
+              if (err) return done(err);
+              results = results.map(function (r) {
+                return r.avg;
+              });
+              done(null, results);
+            });
+          },
+          disk_pct: function (done) {
+            app.stats.graph(server.id + ':disk_pct', '5m', {start: new Date().getTime() - 86400000}, function (err, results) {
+              if (err) return done(err);
+              results = results.map(function (r) {
+                return r.avg;
+              });
+              done(null, results);
+            });
+          },
+          tcp_conns: function (done) {
+            app.stats.graph(server.id + ':tcp_conns', '5m', {start: new Date().getTime() - 86400000}, function (err, results) {
               if (err) return done(err);
               results = results.map(function (r) {
                 return r.avg;
