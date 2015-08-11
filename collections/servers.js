@@ -20,7 +20,7 @@ module.exports = function (app) {
             app.stats.graph(server.id + ':load_avg', '15m', {start: new Date().getTime() - 86400000}, function (err, results) {
               if (err) return done(err);
               results = results.map(function (r) {
-                return r.avg;
+                return r.close;
               });
               done(null, results);
             });
@@ -29,7 +29,7 @@ module.exports = function (app) {
             app.stats.graph(server.id + ':tcp_conns', '15m', {start: new Date().getTime() - 86400000}, function (err, results) {
               if (err) return done(err);
               results = results.map(function (r) {
-                return r.avg;
+                return r.close;
               });
               done(null, results);
             });
