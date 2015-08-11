@@ -17,7 +17,7 @@ module.exports = function (app) {
         server.meta = {};
         async.parallel({
           load_avg: function (done) {
-            app.stats.graph(server.id + ':load_avg', '5m', {start: new Date().getTime() - 86400000}, function (err, results) {
+            app.stats.graph(server.id + ':load_avg', '15m', {start: new Date().getTime() - 86400000}, function (err, results) {
               if (err) return done(err);
               results = results.map(function (r) {
                 return r.avg;
@@ -26,7 +26,7 @@ module.exports = function (app) {
             });
           },
           tcp_conns: function (done) {
-            app.stats.graph(server.id + ':tcp_conns', '5m', {start: new Date().getTime() - 86400000}, function (err, results) {
+            app.stats.graph(server.id + ':tcp_conns', '15m', {start: new Date().getTime() - 86400000}, function (err, results) {
               if (err) return done(err);
               results = results.map(function (r) {
                 return r.avg;
