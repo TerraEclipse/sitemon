@@ -64,6 +64,33 @@ module.exports = function (app) {
         });
       });
     })
+    .get('/sites/:id/clear', function (req, res, next) {
+      app.sites.load(req.params.id, function (err, site) {
+        if (err) return next(err);
+        if (!site) return res.renderStatus(404);
+        var deleted = 0;
+
+        app.site_scans(site.id).head(0, function (err, chunk, getNext) {
+          if (err) return next(err);
+          var latch = chunk.length;
+          if (latch) {
+            chunk.forEach(function (scan_id) {
+              app.site_scans(site.id).destroy(scan_id, function (err) {
+                if (err) return next(err);
+                deleted++;
+                if (!--latch) {
+                  getNext();
+                }
+              });
+            });
+          }
+          else {
+            console.log('deleted', deleted, 'site_scans');
+            res.redirect('/sites/' + req.params.id);
+          }
+        });
+      });
+    })
     .post('/sites/:id/edit', function (req, res, next) {
       app.sites.load(req.params.id, function (err, site) {
         if (err) return next(err);

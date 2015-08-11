@@ -90,6 +90,33 @@ module.exports = function (app) {
         });
       });
     })
+    .get('/servers/:id/clear', function (req, res, next) {
+      app.servers.load(req.params.id, function (err, server) {
+        if (err) return next(err);
+        if (!server) return res.renderStatus(404);
+        var deleted = 0;
+
+        app.server_posts(server.id).head(0, function (err, chunk, getNext) {
+          if (err) return next(err);
+          var latch = chunk.length;
+          if (latch) {
+            chunk.forEach(function (post_id) {
+              app.server_posts(server.id).destroy(post_id, function (err) {
+                if (err) return next(err);
+                deleted++;
+                if (!--latch) {
+                  getNext();
+                }
+              });
+            });
+          }
+          else {
+            console.log('deleted', deleted, 'server_posts');
+            res.redirect('/servers/' + req.params.id);
+          }
+        });
+      });
+    })
     .post('/servers/:id/edit', function (req, res, next) {
       app.servers.load(req.params.id, function (err, server) {
         if (err) return next(err);
