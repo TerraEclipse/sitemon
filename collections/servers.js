@@ -25,15 +25,6 @@ module.exports = function (app) {
               done(null, results);
             });
           },
-          disk_pct: function (done) {
-            app.stats.graph(server.id + ':disk_pct', '5m', {start: new Date().getTime() - 86400000}, function (err, results) {
-              if (err) return done(err);
-              results = results.map(function (r) {
-                return r.avg;
-              });
-              done(null, results);
-            });
-          },
           tcp_conns: function (done) {
             app.stats.graph(server.id + ':tcp_conns', '5m', {start: new Date().getTime() - 86400000}, function (err, results) {
               if (err) return done(err);
